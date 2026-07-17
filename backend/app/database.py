@@ -5,7 +5,11 @@ from app.models.user import User
 from app.models.feedback import Feedback
 from app.models.shared_plan import SharedPlan
 # We will place the db file in the backend root directory
-sqlite_file_name = "calmgate.db"
+if os.environ.get("VERCEL") == "1":
+    sqlite_file_name = "/tmp/calmgate.db"
+else:
+    sqlite_file_name = "calmgate.db"
+
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
 connect_args = {"check_same_thread": False}

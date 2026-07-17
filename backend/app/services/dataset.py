@@ -18,7 +18,7 @@ class DatasetStore:
         return cls._instance
 
     def load_default(self):
-        filepath = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../data/upload_template.json"))
+        filepath = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../data/upload_template.json"))
         try:
             with open(filepath, "r") as f:
                 data = json.load(f)
