@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 export const ProfileWizard = ({ onGeneratePlan, isGenerating, t = (k) => k }) => {
   const [profile, setProfile] = useState({
+    seatSection: 'SEC-101',
     noise: 4,
     light: 5,
     crowd: 6,
@@ -30,6 +31,24 @@ export const ProfileWizard = ({ onGeneratePlan, isGenerating, t = (k) => k }) =>
       <span className="eyebrow">{t('step1')}</span>
       <h2 id="profile-heading">{t('profile_heading')}</h2>
       <p className="sub">{t('profile_sub')}</p>
+
+      {/* Seat Selection */}
+      <div className="field">
+        <div className="field-label">
+          <label htmlFor="seatSection">Seat Section</label>
+        </div>
+        <select 
+          id="seatSection" 
+          value={profile.seatSection} 
+          onChange={(e) => setProfile(p => ({...p, seatSection: e.target.value}))}
+          style={{ width: '100%', padding: '10px 12px', borderRadius: '10px', border: '1px solid var(--border)', fontFamily: 'var(--font-body)', fontSize: '13.5px', background: 'var(--bg-subtle)' }}
+        >
+          <option value="SEC-101">Section 101 (North West)</option>
+          <option value="SEC-102">Section 102 (North East)</option>
+          <option value="SEC-103">Section 103 (South West)</option>
+          <option value="SEC-104">Section 104 (South East)</option>
+        </select>
+      </div>
 
       {/* Primary Profile Sliders */}
       <div className="field">
@@ -81,38 +100,38 @@ export const ProfileWizard = ({ onGeneratePlan, isGenerating, t = (k) => k }) =>
       {/* Toggles */}
       <div className="toggle-row">
         <label htmlFor="quietExit">{t('quiet_exit')}</label>
-        <div className="switch">
+        <label className="switch" htmlFor="quietExit">
           <input 
             type="checkbox" id="quietExit" 
             checked={profile.quietExit} 
             onChange={e => setProfile(p => ({...p, quietExit: e.target.checked}))}
           />
           <span className="slider-pill"></span>
-        </div>
+        </label>
       </div>
       <div className="toggle-row">
         <label htmlFor="serviceAnimal">{t('service_animal')}</label>
-        <div className="switch">
+        <label className="switch" htmlFor="serviceAnimal">
           <input 
             type="checkbox" id="serviceAnimal" 
             checked={profile.serviceAnimal} 
             onChange={e => setProfile(p => ({...p, serviceAnimal: e.target.checked}))}
           />
           <span className="slider-pill"></span>
-        </div>
+        </label>
       </div>
 
       {/* Companion Mode */}
       <div className="companion-toggle-row">
         <label htmlFor="companionMode">{t('companion_mode')}</label>
-        <div className="switch">
+        <label className="switch" htmlFor="companionMode">
           <input 
             type="checkbox" id="companionMode" 
             checked={companionOn}
             onChange={e => setCompanionOn(e.target.checked)}
           />
           <span className="slider-pill"></span>
-        </div>
+        </label>
       </div>
 
       <div className={`companion-panel ${companionOn ? 'open' : ''}`}>

@@ -151,6 +151,19 @@ npm run dev
 
 Visit `http://localhost:5173` → complete the sensory profile → view your AI-generated plan.
 
+### Deploying to Vercel
+
+CalmGate is fully configured to be deployed as a monorepo on Vercel, running both the React frontend and the FastAPI backend seamlessly!
+
+1. Import your GitHub repository into Vercel.
+2. In the Vercel project settings, set the **Environment Variables**:
+   - `OPENAI_API_KEY`: Your OpenAI API key (required for AI reasoning).
+   - `OPENAI_BASE_URL`: (Optional) Custom API URL, e.g., `https://api.openai.com/v1`.
+3. Vercel will automatically detect the `vercel.json` file in the root directory and deploy the frontend and backend.
+
+> [!WARNING]
+> **Database Persistence on Vercel:** CalmGate uses SQLite. Because Vercel Serverless Functions have an ephemeral filesystem, user profiles will not persist across requests when deployed there. For a production deployment on Vercel, it is highly recommended to swap the SQLite database url in `backend/app/database.py` with a remote PostgreSQL database (like Supabase or Neon).
+
 ## Uploading Your Own Data
 
 CalmGate ships with synthetic zone, signal, and match data — but it's built to accept real data at runtime, no redeploy required.

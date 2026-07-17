@@ -15,6 +15,7 @@ export const App = () => {
   const [profileId, setProfileId] = useState(localStorage.getItem('calmgate_profile_id'));
   const [liveData, setLiveData] = useState({ zones: [], liveSignals: {} });
   const [plan, setPlan] = useState(null);
+  const [selectedSeat, setSelectedSeat] = useState('SEC-101');
   const [isGenerating, setIsGenerating] = useState(false);
 
   // Translation helper function
@@ -85,9 +86,11 @@ export const App = () => {
       setProfileId(pId);
       localStorage.setItem('calmgate_profile_id', pId);
 
+      setSelectedSeat(profileData.seatSection);
+      
       const planRes = await api.generatePlan(
         pId, 
-        'SEC_101', 
+        profileData.seatSection, 
         profileData.companion || null,
         userId
       );
@@ -184,12 +187,12 @@ export const App = () => {
           )}
         </div>
         
-        <div className="stack">
+        <div className="stack" style={{ position: 'sticky', top: '95px', height: 'fit-content' }}>
           <StadiumMap 
             zones={liveData.zones}
             liveSignals={liveData.liveSignals}
             recommendedGate={plan?.plan?.recommendedGate}
-            recommendedSection="SEC_101"
+            recommendedSection={selectedSeat}
             recommendedReset={plan?.plan?.nearestResetZone}
             t={t}
           />
